@@ -1,0 +1,14 @@
+#NavbarF{
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: -20px;
+}
+
+#ListNav1,
+#ListNav2{
+    text-decoration: none;
+    font-weight: 400;
+    color: aliceblue;
+    margin: 10px;
+   
+}
