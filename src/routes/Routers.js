@@ -1,0 +1,26 @@
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import AllPokes from "../pages/AllPokes";
+import PokeDetails from "../pages/PokeDetails";
+import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
+import Contact from "../pages/Contact";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+
+const Routers = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/pokes" />} />
+      <Route path="/pokes" element={<AllPokes />} />
+      <Route path="/pokes/:id" element={<PokeDetails />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/contact" element={<Contact />} />
+    </Routes>
+  );
+};
+
+export default Routers;
