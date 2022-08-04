@@ -11,6 +11,16 @@ import { cartActions } from "../store/shopping-cart/cartSlice";
 
 import "../styles/product-details.css";
 
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+
 import ProductCard from "../components/UI/product-card/ProductCard";
 
 const FoodDetails = () => {
@@ -37,6 +47,23 @@ const FoodDetails = () => {
       })
     );
   };
+
+  //Inicio de Firestore
+  useEffect(() => {
+    const db = getFirestore();
+    const queryColleccion = collection(db, "items");
+    const queryColleccionFilter = query(
+      queryColleccion,
+
+      where("price", ">=", 1000),
+      limit(2),
+      orderBy("price", "asc")
+    );
+    getDocs(queryColleccionFilter);
+    console.log(products);
+  }, []);
+
+  console.log(products);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -67,16 +94,17 @@ const FoodDetails = () => {
                 >
                   <img src={product.image01} alt="" className="w-50" />
                 </div>
+
                 <div
                   className="img__item mb-3"
-                  onClick={() => setPreviewImg(product.image02)}
+                  onClick={() => setPreviewImg(product.image01)}
                 >
                   <img src={product.image02} alt="" className="w-50" />
                 </div>
 
                 <div
                   className="img__item"
-                  onClick={() => setPreviewImg(product.image03)}
+                  onClick={() => setPreviewImg(product.image01)}
                 >
                   <img src={product.image03} alt="" className="w-50" />
                 </div>
@@ -114,7 +142,6 @@ const FoodDetails = () => {
                 >
                   Description
                 </h6>
-                
               </div>
 
               {tab === "desc" ? (
@@ -123,8 +150,6 @@ const FoodDetails = () => {
                 </div>
               ) : (
                 <div className="tab__form mb-3">
-
-                  
                   <form className="form" onSubmit={submitHandler}>
                     <div className="form__group">
                       <input
