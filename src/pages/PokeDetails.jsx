@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import products from "../assets/fake-data/products";
 import { useParams } from "react-router-dom";
-import Helmet from "../components/Helmet/Helmet";
-import CommonSection from "../components/UI/common-section/CommonSection";
+
 import { Container, Row, Col } from "reactstrap";
 
 import { useDispatch } from "react-redux";
-import { cartActions } from "../store/shopping-cart/cartSlice";
-
-import "../styles/product-details.css";
 
 import {
   collection,
@@ -21,6 +16,11 @@ import {
   where,
 } from "firebase/firestore";
 
+import "../styles/product-details.css";
+import products from "../assets/fake-data/products";
+import Helmet from "../components/Helmet/Helmet";
+import { cartActions } from "../store/shopping-cart/cartSlice";
+import CommonSection from "../components/UI/common-section/CommonSection";
 import ProductCard from "../components/UI/product-card/ProductCard";
 
 const FoodDetails = () => {
@@ -48,7 +48,6 @@ const FoodDetails = () => {
     );
   };
 
-  //Inicio de Firestore
   useEffect(() => {
     const db = getFirestore();
     const queryColleccion = collection(db, "items");
@@ -60,10 +59,7 @@ const FoodDetails = () => {
       orderBy("price", "asc")
     );
     getDocs(queryColleccionFilter);
-    console.log(products);
   }, []);
-
-  console.log(products);
 
   const submitHandler = (e) => {
     e.preventDefault();
