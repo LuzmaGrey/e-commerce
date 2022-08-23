@@ -1,0 +1,2 @@
+.carousel .image,.carousel .thumb{border-radius:1rem}.carousel{display:flex;justify-content:center}.carousel .carousel-status,.carousel .control-arrow{display:none}.carousel .slide{height:50vh}.carousel .slide img{max-height:100%;width:auto}.carousel .image{margin:0 auto;height:100%;width:auto}.carousel .control-dots .dot{background:#141414}.carousel .thumb.selected{border:2px solid #68707d}.carousel .thumb.selected img{opacity:.5}
+/*# sourceMappingURL=Sliderimg.min.css.map */

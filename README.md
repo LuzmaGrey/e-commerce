@@ -1,11 +1,15 @@
-#Poke Shop
+# Ecommerce | Pokémon Store
+Este proyecto fue construido para el ejercicio final sobre [ReactJS](https://www.coderhouse.com/online/reactjs) de la Plataforma de Coderhouse.
 
-// first install all necessary dependencies
+## Tecnologias
+Para modificar este proyecto es necesario saber las tecnologias basicas de la web `html`, `css` y `javascript`. Adicional a esto, la aplicación fue construida usando las siguientes tecnologias:
 
-npm i
+* [React](https://reactjs.org/) 
+* [Firebase](https://firebase.google.com/)
+* [React-Router](https://reactrouter.com/docs/en/v6) 
+* [React-Hot-Toast](https://react-hot-toast.com/)
+* [SCSS](https://sass-lang.com/)
+* [React-Icons](https://react-icons.github.io/react-icons/)
 
-// run the application
-
-npm start
-
-----------------------------
+## :page_facing_up: Licencia
+Este proyecto esta bajo la licencia [MIT](/LICENCE).

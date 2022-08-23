@@ -1,123 +1,52 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Container, Row, Col } from "reactstrap";
-import CommonSection from "../components/UI/common-section/CommonSection";
-import Helmet from "../components/Helmet/Helmet";
+import { useContext } from "react";
 
-import "../styles/checkout.css";
+import EmptyCart from "../components/EmptyCart";
+import FinishBuying from "../components/FinishBuying";
+import ItemCheckout from "../components/ItemCheckout";
+import AppContext from "../context/AppContext";
+import "../styles/Checkout.scss";
 
 const Checkout = () => {
-  const [enterName, setEnterName] = useState("");
-  const [enterEmail, setEnterEmail] = useState("");
-  const [enterNumber, setEnterNumber] = useState("");
-  const [enterCountry, setEnterCountry] = useState("");
-  const [enterCity, setEnterCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const { state, totalPrice } = useContext(AppContext);
 
-  const shippingInfo = [];
-  const cartTotalAmount = useSelector((state) => state.cart.totalAmount);
-  const shippingCost = 30;
-
-  const totalAmount = cartTotalAmount + Number(shippingCost);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const userShippingAddress = {
-      name: enterName,
-      email: enterEmail,
-      phone: enterNumber,
-      country: enterCountry,
-      city: enterCity,
-      postalCode: postalCode,
-    };
-
-    shippingInfo.push(userShippingAddress);
-    console.log(shippingInfo);
-  };
+  const date = new Date();
 
   return (
-    <Helmet title="Checkout">
-      <CommonSection title="Checkout" />
-      <section>
-        <Container>
-          <Row>
-            <Col lg="8" md="6">
-              <h6 className="mb-4">Shipping Address</h6>
-              <form className="checkout__form" onSubmit={submitHandler}>
-                <div className="form__group">
-                  <input
-                    type="text"
-                    placeholder="Enter your name"
-                    required
-                    onChange={(e) => setEnterName(e.target.value)}
-                  />
-                </div>
-
-                <div className="form__group">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    required
-                    onChange={(e) => setEnterEmail(e.target.value)}
-                  />
-                </div>
-                <div className="form__group">
-                  <input
-                    type="number"
-                    placeholder="Phone number"
-                    required
-                    onChange={(e) => setEnterNumber(e.target.value)}
-                  />
-                </div>
-                <div className="form__group">
-                  <input
-                    type="text"
-                    placeholder="Country"
-                    required
-                    onChange={(e) => setEnterCountry(e.target.value)}
-                  />
-                </div>
-                <div className="form__group">
-                  <input
-                    type="text"
-                    placeholder="City"
-                    required
-                    onChange={(e) => setEnterCity(e.target.value)}
-                  />
-                </div>
-                <div className="form__group">
-                  <input
-                    type="number"
-                    placeholder="Postal code"
-                    required
-                    onChange={(e) => setPostalCode(e.target.value)}
-                  />
-                </div>
-                <button type="submit" className="addTOCart__btn">
-                  Payment
-                </button>
-              </form>
-            </Col>
-
-            <Col lg="4" md="6">
-              <div className="checkout__bill">
-                <h6 className="d-flex align-items-center justify-content-between mb-3">
-                  Subtotal: <span>${cartTotalAmount}</span>
-                </h6>
-                <h6 className="d-flex align-items-center justify-content-between mb-3">
-                  Shipping: <span>${shippingCost}</span>
-                </h6>
-                <div className="checkout__total">
-                  <h5 className="d-flex align-items-center justify-content-between">
-                    Total: <span>${totalAmount}</span>
-                  </h5>
-                </div>
+    <div className="Checkout">
+      {state.length > 0 ? (
+        <>
+          <h1 className="title">Your Cart</h1>
+          <div className="Checkout-container">
+            <div className="Checkout-content">
+              <div className="order">
+                <p>
+                  <span>{date.toLocaleDateString()}</span>
+                </p>
               </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-    </Helmet>
+              {state.map((producto, index) => (
+                <ItemCheckout
+                  producto={producto}
+                  key={producto.id}
+                  indexValue={index}
+                />
+              ))}
+              <div className="order">
+                <p>
+                  <span>TOTAL</span>
+                  <span>({state.length} Products)</span>
+                </p>
+                <p>${totalPrice() !== 0 && totalPrice()}</p>
+              </div>
+            </div>
+            <FinishBuying />
+          </div>
+        </>
+      ) : (
+        <>
+          <EmptyCart />
+        </>
+      )}
+    </div>
   );
 };
 

@@ -10,12 +10,12 @@ const firebaseConfig = {
   projectId: "pokeshop-1d48f",
   storageBucket: "pokeshop-1d48f.appspot.com",
   messagingSenderId: "529282012615",
-  appId: "1:529282012615:web:02901812ff5dc4a559f5e2"
+  appId: "1:529282012615:web:02901812ff5dc4a559f5e2",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export const initFirebase = () => {
-    return app
+export const getFirestoreApp = () => {
+  return app;
 };

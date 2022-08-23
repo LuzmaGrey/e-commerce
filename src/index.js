@@ -1,27 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./routes/App";
+import { getFirestoreApp } from "./firebase/config";
 
-import App from './App'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'remixicon/fonts/remixicon.css'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import './index.css'
+getFirestoreApp();
 
-import store from './store/store'
-import { Provider } from 'react-redux'
-
-import { BrowserRouter as Router } from 'react-router-dom'
-import { initFirebase } from './firebase/Config'
-
-initFirebase()
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
+    <App />
   </React.StrictMode>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);

@@ -1,0 +1,63 @@
+a {
+  text-decoration: none;
+  color: #181616;
+}
+
+button {
+  font-family: "adihausDin", Arial, Helvetica, sans-serif;
+}
+
+.button {
+  background-color: #df2020;
+  color: #fff;
+  padding: 1.125rem 2rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  border: 2px solid #8a8a8a;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: translateY(-0.25rem);
+}
+
+.button-fw {
+  display: inline-block;
+  background-color: transparent;
+  color: #141414;
+  padding: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  border: 0.5px solid #df2020;
+  transition: 0.3s;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button-fw:hover {
+  background-color: #df2020;
+  color: #fff;
+  transform: translateY(-0.2rem);
+}
+
+.button-outline {
+  /* display: inline-block; */
+  background-color: transparent;
+  color: #141414;
+  padding: 10px;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  border: 0.5px solid #df2020;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button-outline:hover {
+  background-color: #df2020;
+  color: #fff;
+  transform: translateY(-0.2rem);
+}
+
+/*# sourceMappingURL=Button.css.map */

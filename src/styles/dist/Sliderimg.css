@@ -1,0 +1,46 @@
+.carousel {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel .slide {
+  height: 50vh;
+}
+
+.carousel .slide img {
+  max-height: 100%;
+  width: auto;
+}
+
+.carousel .image {
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+  border-radius: 1rem;
+}
+
+.carousel .carousel-status {
+  display: none;
+}
+
+.carousel .control-dots .dot {
+  background: #141414;
+}
+
+.carousel .thumb {
+  border-radius: 1rem;
+}
+
+.carousel .thumb.selected {
+  border: 2px solid #68707d;
+}
+
+.carousel .thumb.selected img {
+  opacity: 0.5;
+}
+
+.carousel .control-arrow {
+  display: none;
+}
+
+/*# sourceMappingURL=Sliderimg.css.map */

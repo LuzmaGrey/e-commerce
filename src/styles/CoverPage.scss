@@ -1,0 +1,53 @@
+.cover {
+  overflow: hidden;
+  padding-bottom: 10px !important;
+  background-image: url(https://wallpaper.dog/large/972942.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  .cover-container {
+    height: 60vh;
+    .logo-hero {
+      display: flex;
+      .logo-hero-img {
+        top: 0;
+        max-width: initial;
+        width: 100%;
+      }
+    }
+  }
+}
+
+//MEDIA
+@media screen and (min-width: 768px) {
+  .cover {
+    padding-bottom: 0;
+
+    .cover-container {
+      grid-template-columns: max-content max-content;
+      justify-content: center;
+      align-items: center;
+
+      .logo-hero {
+        order: 1;
+
+        .logo-hero-img {
+          width: 300px;
+          top: 1rem;
+          right: 0;
+          left: -3rem;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .cover .cover-container .logo-hero {
+    justify-content: center;
+    .logo-hero-img {
+      width: 250px;
+      margin-top: 1rem;
+    }
+  }
+}
