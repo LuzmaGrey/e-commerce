@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBf-a9pOzEj6Mpg9DYvL8PFEUGiqMhKv0o",
-  authDomain: "pokeshop-1d48f.firebaseapp.com",
-  projectId: "pokeshop-1d48f",
-  storageBucket: "pokeshop-1d48f.appspot.com",
-  messagingSenderId: "529282012615",
-  appId: "1:529282012615:web:02901812ff5dc4a559f5e2",
+  apiKey: "AIzaSyBDFCr4cn2AD23JPBuSj7R_2XsC5C3IGUo",
+  authDomain: "pokecommerce-294e5.firebaseapp.com",
+  projectId: "pokecommerce-294e5",
+  storageBucket: "pokecommerce-294e5.appspot.com",
+  messagingSenderId: "666082055112",
+  appId: "1:666082055112:web:74d42d02da9674613166fd"
 };
 
 // Initialize Firebase
