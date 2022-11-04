@@ -49,9 +49,6 @@ const Header = () => {
               <li className="hover-nav">Ground</li>
             </Link>
 
-            <Link to="/categoria/pokedex" className="pokedex">
-              <li className="hover-nav">More Pokes</li>
-            </Link>
           </>
         )}
       </ul>
