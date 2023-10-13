@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-
 import { Link } from "react-router-dom";
-
-import { FaAlignJustify, FaWindowClose } from "react-icons/fa";
-
 import "../styles/Header.scss";
 
 import Cart from "./Cart";
+
+s
+
+
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
