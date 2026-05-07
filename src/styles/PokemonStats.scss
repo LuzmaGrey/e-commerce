@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .pokemon-stats-container {
   margin-top: 30px;
   border-top: 2px solid #eee;
@@ -48,8 +50,8 @@
 
     @each $type, $color in $tag-colors {
       &.#{$type} {
-        background: linear-gradient(180deg, lighten($color, 15%) 0%, $color 100%);
-        border: 1px solid darken($color, 15%);
+        background: linear-gradient(180deg, color.adjust($color, $lightness: 15%) 0%, $color 100%);
+        border: 1px solid color.adjust($color, $lightness: -15%);
         @if $type == electric or $type == ice or $type == steel {
           color: #333;
           text-shadow: 1px 1px 0 rgba(255,255,255,0.5);

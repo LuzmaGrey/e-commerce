@@ -61,3 +61,40 @@
 .poke-type-select {
   text-transform: capitalize;
 }
+
+/* Responsive: Mobile */
+@media screen and (max-width: 600px) {
+  .filters-bar-container {
+    padding: 14px;
+    gap: 12px;
+    margin: 16px 10px;
+    border-radius: 10px;
+
+    .search-box {
+      min-width: 100%;
+      
+      input {
+        font-size: 15px;
+        padding: 10px 16px;
+      }
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: calc(50% - 6px);
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+
+      label {
+        font-size: 12px;
+      }
+
+      select {
+        width: 100%;
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+  }
+}

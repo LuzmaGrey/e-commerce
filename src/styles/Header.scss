@@ -207,3 +207,31 @@
   0% { transform: translateY(-3px) scale(1.05); }
   100% { transform: translateY(-1px) scale(1.05); }
 }
+
+/* Responsive: Navbar móvil */
+@media screen and (max-width: 768px) {
+  .poke-navbar {
+    height: 75px;
+    padding: 0 10px;
+    justify-content: space-between;
+  }
+
+  .poke-logo {
+    width: 90px;
+  }
+
+  .poke-navbar-right {
+    gap: 10px;
+  }
+
+  .nav-user-info {
+    display: none; /* Ocultar email en móvil para ahorrar espacio */
+  }
+
+  .nav-login-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid #1a1a2e;
+    border-radius: 8px;
+  }
+}
