@@ -1,0 +1,63 @@
+.filters-bar-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  margin: 30px auto;
+  max-width: 900px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+  .search-box {
+    flex: 1;
+    min-width: 250px;
+    
+    input {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 2px solid #ddd;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+
+      &:focus {
+        border-color: #ff4d4f;
+        box-shadow: 0 0 8px rgba(255, 77, 79, 0.2);
+      }
+    }
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    select {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+      background-color: white;
+      font-size: 15px;
+      outline: none;
+      cursor: pointer;
+
+      &:focus {
+        border-color: #ff4d4f;
+      }
+    }
+  }
+}
+
+/* Nuevas clases refactorizadas */
+.poke-type-select {
+  text-transform: capitalize;
+}

@@ -26,7 +26,7 @@ const MyOrder = () => {
               <p>
                 <span>Total</span>
               </p>
-              <p>${totalPrice() !== 0 && totalPrice()}</p>
+              <p>${totalPrice !== 0 && totalPrice}</p>
             </div>
 
             <NavLink to="/cart">

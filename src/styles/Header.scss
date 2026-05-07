@@ -12,26 +12,29 @@
     width: 75%;
     gap: 3rem;
   }
-  .all,
-  .fire,
-  .water,
-  .ground,
-  .pokedex {
+  .poke-nav-link {
     text-decoration: none;
-    color: #a19d9d;
-    font-size: 1rem;
+    color: #555;
+    font-size: 1.1rem;
     cursor: pointer;
-    border: 1px solid #fff;
-    padding: 8px;
+    border: 2px solid transparent;
+    padding: 8px 20px;
     font-weight: bold;
-    border-radius: 8px;
-    &:hover {
-      border: 1px solid #f0cece;
-      color: #2e2e2e;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+
+    li {
+      list-style: none;
     }
-    &:focus {
-      border: 1px solid #f0cece;
-      color: #2e2e2e;
+
+    &:hover {
+      color: white;
+      background: linear-gradient(135deg, #ff4e00, #e52d27);
+      box-shadow: 0 4px 15px rgba(229, 45, 39, 0.4);
+      transform: translateY(-3px) scale(1.05);
+      animation: pokeBounce 0.5s ease-in-out alternate infinite;
     }
   }
 }
@@ -147,4 +150,60 @@
   justify-content: center;
   align-items: center;
   position: absolute;
+}
+
+/* Nuevas clases refactorizadas para Navbar */
+.poke-navbar {
+  height: 100px;
+}
+
+.poke-logo {
+  width: 120px;
+  border-top: none;
+}
+
+.poke-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 12px;
+
+  .user-email {
+    font-weight: bold;
+  }
+
+  .nav-logout-btn {
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+    transition: color 0.2s;
+
+    &:hover {
+      color: darkred;
+    }
+  }
+}
+
+.nav-login-btn {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #ff4d4f;
+  }
+}
+
+/* Category Animations */
+@keyframes pokeBounce {
+  0% { transform: translateY(-3px) scale(1.05); }
+  100% { transform: translateY(-1px) scale(1.05); }
 }

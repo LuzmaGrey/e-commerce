@@ -53,3 +53,19 @@
     transform: translateY(-0.5rem);
   }
 }
+
+/* Nuevas clases refactorizadas para ItemListContainer */
+.empty-pokemon-msg {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.load-more-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.load-more-btn {
+  width: 200px;
+}

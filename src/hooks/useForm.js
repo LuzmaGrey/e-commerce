@@ -1,19 +1,26 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
 
-  const handleChange = (event) => {
-    setForm({
-      ...form,
-      [event.target.name]: event.target.value,
+  const handleChange = useCallback((event) => {
+    const { name, value } = event.target;
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  }, []);
+
+  const handleBlur = useCallback((event) => {
+    const { name, value } = event.target;
+    setForm((prevForm) => {
+      const newForm = { ...prevForm, [name]: value };
+      setErrors(validateForm(newForm));
+      return newForm;
     });
-  };
-  const handleBlur = (event) => {
-    handleChange(event);
-    setErrors(validateForm(form));
-  };
+  }, [validateForm]);
+
   return {
     form,
     errors,

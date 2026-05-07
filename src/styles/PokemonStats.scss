@@ -1,0 +1,163 @@
+.pokemon-stats-container {
+  margin-top: 30px;
+  border-top: 2px solid #eee;
+  padding-top: 20px;
+}
+
+.stats-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.type-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+
+  .type-tag {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15), inset 0 2px 0 rgba(255,255,255,0.3), inset 0 -2px 0 rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+    display: inline-block;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.2), inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -2px 0 rgba(0,0,0,0.2);
+    }
+
+    $tag-colors: (
+      normal: #A8A77A, fire: #EE8130, water: #6390F0, electric: #F7D02C,
+      grass: #7AC74C, ice: #96D9D6, fighting: #C22E28, poison: #A33EA1,
+      ground: #E2BF65, flying: #A98FF3, psychic: #F95587, bug: #A6B91A,
+      rock: #B6A136, ghost: #735797, dragon: #6F35FC, dark: #705848,
+      steel: #B7B7CE, fairy: #D685AD
+    );
+
+    @each $type, $color in $tag-colors {
+      &.#{$type} {
+        background: linear-gradient(180deg, lighten($color, 15%) 0%, $color 100%);
+        border: 1px solid darken($color, 15%);
+        @if $type == electric or $type == ice or $type == steel {
+          color: #333;
+          text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+        }
+      }
+    }
+  }
+}
+
+.weakness-section, .strength-section {
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+
+  /* Accent glowing bar */
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: linear-gradient(180deg, #ff4d4f, #ff7875);
+    box-shadow: 3px 0 15px rgba(255, 77, 79, 0.5);
+  }
+}
+
+.strength-section {
+  &::before {
+    background: linear-gradient(180deg, #52c41a, #95de64);
+    box-shadow: 3px 0 15px rgba(82, 196, 26, 0.5);
+  }
+}
+
+.gallery-container {
+  margin-top: 20px;
+  
+  .gallery-thumbnails {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+
+    .thumbnail-wrapper {
+      flex: 0 0 auto;
+      width: 80px;
+      height: 112px;
+      border-radius: 6px;
+      background: #f0f0f0;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      }
+
+      &.active {
+        border-color: #ffcc00;
+        background: #fffdf0;
+        box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+      }
+      
+      &.shiny-card {
+        background: linear-gradient(135deg, #ffd700, #ff8c00, #ff1493);
+        background-size: 200% 200%;
+        animation: holoFoil 3s ease infinite;
+        border-color: gold;
+        
+        &::after {
+          content: 'SHINY';
+          position: absolute;
+          bottom: 2px;
+          font-size: 9px;
+          font-weight: 900;
+          color: white;
+          text-shadow: 1px 1px 2px black;
+        }
+      }
+    }
+  }
+}
+
+@keyframes holoFoil {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.stats-title.subtitle {
+  font-size: 1rem;
+}

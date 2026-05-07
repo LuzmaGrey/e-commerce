@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import "../styles/Header.scss";
 
 import Cart from "./Cart";
+import { useAuth } from "../context/AuthContext";
 
-s
-
-
+import { FaWindowClose, FaAlignJustify } from "react-icons/fa";
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     const changeWidth = () => {
@@ -22,10 +22,18 @@ const Header = () => {
     };
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <nav className="navbar" style={{ height: '100px' }}>
+    <nav className="navbar poke-navbar">
       <Link to="/">
-        <img src={"https://www.narita-airport.jp/img/original/3786"} alt="logo" className="nav-logo" style={{ width: '120px', borderTop: 'none' }} />
+        <img src={"https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg"} alt="logo" className="nav-logo poke-logo" />
       </Link>
       <ul
         className={isMobile ? "nav-links-mobile" : "nav-links"}
@@ -33,22 +41,15 @@ const Header = () => {
       >
         {(isMobile || screenWidth > 768) && (
           <>
-            <Link to="/" className="all">
-              <li className="hover-nav">All</li>
+            <Link to="/" className="poke-nav-link">
+              <li>Pokédex</li>
             </Link>
 
-            <Link to="/categoria/fire" className="fire">
-              <li className="hover-nav">Fire</li>
-            </Link>
-
-            <Link to="/categoria/water" className="water">
-              <li className="hover-nav">Water</li>
-            </Link>
-
-            <Link to="/categoria/ground" className="ground">
-              <li className="hover-nav">Ground</li>
-            </Link>
-
+            {currentUser && (
+              <Link to="/cart" className="poke-nav-link">
+                <li>Mis Órdenes</li>
+              </Link>
+            )}
           </>
         )}
       </ul>
@@ -62,7 +63,15 @@ const Header = () => {
           <FaAlignJustify alt="icon-menu" className="menu" />
         )}
       </button>
-      <div className="navbar-right">
+      <div className="navbar-right poke-navbar-right">
+        {currentUser ? (
+          <div className="nav-user-info">
+            <span className="user-email">{currentUser.email}</span>
+            <span className="nav-logout-btn" onClick={handleLogout}>Log Out</span>
+          </div>
+        ) : (
+          <Link to="/login" className="nav-login-btn">Log In</Link>
+        )}
         <ul>
           <Cart />
         </ul>

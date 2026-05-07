@@ -35,7 +35,7 @@ const Checkout = () => {
                   <span>TOTAL</span>
                   <span>({state.length} Products)</span>
                 </p>
-                <p>${totalPrice() !== 0 && totalPrice()}</p>
+                <p>${totalPrice !== 0 && totalPrice}</p>
               </div>
             </div>
             <FinishBuying />

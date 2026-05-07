@@ -8,55 +8,137 @@ button {
 }
 
 .button {
-  //display: inline-block;
-  background-color: #df2020;
+  background: linear-gradient(135deg, #ff4d4f, #c0392b);
   color: #fff;
-  padding: 1.125rem 2rem;
-  font-weight: 500;
-  border-radius: 0.5rem;
-  border: 2px solid #8a8a8a;
-  transition: 0.3s;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  transition: all 0.3s ease;
   cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4);
 
   &:hover {
-    transform: translateY(-0.25rem);
+    transform: translateY(-0.2rem);
+    box-shadow: 0 6px 20px rgba(255, 77, 79, 0.6);
   }
 }
 
 .button-fw {
   display: inline-block;
-  background-color: transparent;
-  color: #141414;
-  padding: 10px;
-  font-weight: 600;
+  background: transparent;
+  color: #1a1a2e;
+  padding: 12px 20px;
+  font-weight: 700;
   text-transform: uppercase;
-  border-radius: 0.5rem;
-  border: 0.5px solid #df2020;
-  transition: 0.3s;
+  border-radius: 12px;
+  border: 2px solid #1a1a2e;
+  transition: all 0.3s ease;
   cursor: pointer;
   width: 100%;
+  letter-spacing: 1px;
 
   &:hover {
-    background-color: #df2020;
-    color: #fff;
+    background: #1a1a2e;
+    color: #ffcc00;
     transform: translateY(-0.2rem);
+    box-shadow: 0 4px 15px rgba(26, 26, 46, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
   }
 }
 
 .button-outline {
-  /* display: inline-block; */
   background-color: transparent;
-  color: #141414;
+  color: #1a1a2e;
   padding: 10px;
   font-weight: 700;
-  border-radius: 0.5rem;
-  border: 0.5px solid #df2020;
+  border-radius: 12px;
+  border: 2px solid #1a1a2e;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
 
   &:hover {
-    background-color: #df2020;
-    color: #fff;
+    background-color: #1a1a2e;
+    color: #ffcc00;
     transform: translateY(-0.2rem);
+    box-shadow: 0 4px 15px rgba(26, 26, 46, 0.3);
+  }
+}
+
+$type-colors: (
+  normal: #A8A77A,
+  fire: #EE8130,
+  water: #6390F0,
+  electric: #F7D02C,
+  grass: #7AC74C,
+  ice: #96D9D6,
+  fighting: #C22E28,
+  poison: #A33EA1,
+  ground: #E2BF65,
+  flying: #A98FF3,
+  psychic: #F95587,
+  bug: #A6B91A,
+  rock: #B6A136,
+  ghost: #735797,
+  dragon: #6F35FC,
+  dark: #705848,
+  steel: #B7B7CE,
+  fairy: #D685AD
+);
+
+.btn-pokemon {
+  background-color: transparent;
+  font-weight: 800;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    z-index: -1;
+    transition: all 0.5s;
+  }
+
+  &:hover {
+    &::before {
+      left: 150%;
+      transition: all 0.5s ease-in-out;
+    }
+  }
+
+  // Generate type variations
+  @each $type, $color in $type-colors {
+    &.type-#{$type} {
+      border: 2px solid $color;
+      color: $color;
+
+      &:hover {
+        background-color: $color;
+        // Electric and Ground and Ice need dark text for readability when filled
+        @if $type == electric or $type == ground or $type == ice or $type == steel {
+          color: #333;
+        } @else {
+          color: white;
+        }
+        box-shadow: 0 4px 15px rgba($color, 0.4);
+      }
+    }
   }
 }

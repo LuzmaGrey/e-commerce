@@ -10,11 +10,12 @@ const Item = ({ producto }) => {
         src={producto.imagen}
         className="sunglass__img"
         alt={producto.nombre}
+        loading="lazy"
       />
       <span className="sunglass__name">{producto.nombre}</span>
       <span className="sunglass__price">${producto.precio}</span>
-      <Link className="button-outline" to={`/detalle/${producto.id}`}>
-        View Product
+      <Link className={`button-outline btn-pokemon type-${producto.categoria}`} to={`/detalle/${producto.id}`}>
+        View Pokémon
       </Link>
     </article>
   );
