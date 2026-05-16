@@ -1,237 +1,225 @@
-.navbar {
+/* ═══════════════════════════════════════
+   NAVBAR — Pokédex Pro
+   ═══════════════════════════════════════ */
+
+.poke-navbar {
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  height: 75px;
-  background-color: #fff;
-
-  .nav-links {
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    width: 75%;
-    gap: 3rem;
-  }
-  .poke-nav-link {
-    text-decoration: none;
-    color: #555;
-    font-size: 1.1rem;
-    cursor: pointer;
-    border: 2px solid transparent;
-    padding: 8px 20px;
-    font-weight: bold;
-    border-radius: 25px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    position: relative;
-    overflow: hidden;
-
-    li {
-      list-style: none;
-    }
-
-    &:hover {
-      color: white;
-      background: linear-gradient(135deg, #ff4e00, #e52d27);
-      box-shadow: 0 4px 15px rgba(229, 45, 39, 0.4);
-      transform: translateY(-3px) scale(1.05);
-      animation: pokeBounce 0.5s ease-in-out alternate infinite;
-    }
-  }
-}
-.mobile-menu-icon {
-  display: none;
-}
-.nav-links-mobile {
-  display: none;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  gap: 1rem;
 }
 
-//MEDIA
-@media screen and (max-width: 768px) {
-  .nav-logo {
-    display: flex;
-    position: absolute;
-    top: 6px;
-    left: 13px;
-  }
-  .nav-links {
-    display: none !important;
-  }
-  .nav-links-mobile {
-    position: absolute;
-    display: block;
-    list-style: none;
-    background: #fff;
-    right: 0;
-    top: 75px;
-    transition: all 0.5s ease-out;
-    width: 50%;
-  }
-  .all,
-  .fire,
-  .water,
-  .ground,
-  .pokedex {
-    color: #141414 !important;
-    text-align: center;
-    padding: 32px;
-    width: 100%;
-    transition: all 0.5s ease;
-    font-weight: bold;
-  }
-  .mobile-menu-icon {
-    display: block;
-    position: absolute;
-    font-size: 30px;
-    color: #141414;
-    border: none;
-    outline: none;
-    right: 25px;
-    top: 22px;
-    background: transparent;
-  }
-}
-.nav-logo {
-  width: 60px;
+/* ─── Logo ─── */
+.nav-logo,
+.poke-logo {
+  width: 110px;
   cursor: pointer;
+  display: block;
+  flex-shrink: 0;
 }
-.navbar-right ul {
+
+/* ─── Center nav links ─── */
+.nav-links {
+  display: flex;
+  align-items: center;
   list-style: none;
+  gap: 0.5rem;
   padding: 0;
   margin: 0;
-  display: flex;
-  align-items: center;
-  height: 60px;
+  flex: 1;
 }
 
-.navbar-right ul .a {
+/* ─── Nav link pills ─── */
+.poke-nav-link {
   text-decoration: none;
-  color: #c7c7c7;
-  border: 1px solid #fff;
-  padding: 8px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-.navbar-right ul li .a:hover {
-  border: 1px solid rgba(169, 177, 245, 0.75);
-  color: #141414;
-}
-
-.navbar-right {
-  transition: 0.3s;
-}
-.iconCart {
-  font-weight: 700;
-  font-style: normal;
-  font-variant: normal;
-  font-size: 2rem;
-  display: inline-block;
-  text-transform: none;
-  margin-right: 2rem;
-
-  transition: 0.3s;
-}
-.iconCart:hover {
-  transform: translateY(-0.5rem);
-  transform: rotate(-50deg);
+  color: #555;
+  font-size: 0.95rem;
   cursor: pointer;
-}
-.count {
-  width: 16px;
-  height: 16px;
-  background: transparent;
-  border-radius: 50%;
-  font-size: 20px;
-  font-weight: bold;
-  position: absolute;
-  right: 35px;
-  margin-top: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
+  border: 2px solid transparent;
+  padding: 6px 16px;
+  font-weight: 700;
+  border-radius: 25px;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  display: block;
+
+  li {
+    list-style: none;
+  }
+
+  &:hover {
+    color: white;
+    background: linear-gradient(135deg, #ff4e00, #e52d27);
+    box-shadow: 0 4px 15px rgba(229, 45, 39, 0.3);
+    transform: translateY(-2px);
+  }
 }
 
-/* Nuevas clases refactorizadas para Navbar */
-.poke-navbar {
-  height: 100px;
-}
-
-.poke-logo {
-  width: 120px;
-  border-top: none;
-}
-
+/* ─── Right side ─── */
 .poke-navbar-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
-.nav-user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+/* ─── User email (desktop only) ─── */
+.nav-user-email {
   font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-  .user-email {
-    font-weight: bold;
+/* ─── Logout button ─── */
+.nav-logout-btn {
+  background: none;
+  border: 1.5px solid #ff4d4f;
+  color: #ff4d4f;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #ff4d4f;
+    color: #fff;
+  }
+}
+
+/* ─── Login button ─── */
+.nav-login-btn {
+  text-decoration: none;
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 13px;
+  border: 1.5px solid #1a1a2e;
+  padding: 5px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #1a1a2e;
+    color: #fff;
+  }
+}
+
+/* ─── Cart wrapper ─── */
+.cart-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Cart icon ─── */
+.iconCart {
+  font-size: 1.7rem;
+  display: block;
+  cursor: pointer;
+  color: #1a1a2e;
+  transition: transform 0.25s ease;
+}
+
+.iconCart:hover {
+  transform: rotate(-20deg) scale(1.15);
+}
+
+/* ─── Cart badge ─── */
+.count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  width: 18px;
+  height: 18px;
+  background: #ff4d4f;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════
+   TABLET / MOBILE  (≤ 768px)
+   ════════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+  .poke-navbar {
+    height: 56px;
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .nav-logo,
+  .poke-logo {
+    width: 80px;
+  }
+
+  /* Shrink nav link pills */
+  .poke-nav-link {
+    font-size: 0.78rem;
+    padding: 5px 10px;
+  }
+
+  /* Hide email, keep logout button */
+  .nav-user-email {
+    display: none;
   }
 
   .nav-logout-btn {
-    cursor: pointer;
-    color: red;
-    text-decoration: underline;
-    transition: color 0.2s;
-
-    &:hover {
-      color: darkred;
-    }
-  }
-}
-
-.nav-login-btn {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-  font-size: 14px;
-  transition: color 0.2s;
-
-  &:hover {
-    color: #ff4d4f;
-  }
-}
-
-/* Category Animations */
-@keyframes pokeBounce {
-  0% { transform: translateY(-3px) scale(1.05); }
-  100% { transform: translateY(-1px) scale(1.05); }
-}
-
-/* Responsive: Navbar móvil */
-@media screen and (max-width: 768px) {
-  .poke-navbar {
-    height: 75px;
-    padding: 0 10px;
-    justify-content: space-between;
-  }
-
-  .poke-logo {
-    width: 90px;
-  }
-
-  .poke-navbar-right {
-    gap: 10px;
-  }
-
-  .nav-user-info {
-    display: none; /* Ocultar email en móvil para ahorrar espacio */
+    font-size: 11px;
+    padding: 4px 9px;
   }
 
   .nav-login-btn {
-    font-size: 12px;
-    padding: 6px 12px;
-    border: 1px solid #1a1a2e;
-    border-radius: 8px;
+    font-size: 11px;
+    padding: 4px 9px;
   }
+
+  .poke-navbar-right {
+    gap: 6px;
+  }
+}
+
+/* ════════════════════════════════════════
+   VERY SMALL (≤ 400px — iPhone SE)
+   ════════════════════════════════════════ */
+@media screen and (max-width: 400px) {
+  .nav-logo,
+  .poke-logo {
+    width: 65px;
+  }
+
+  .poke-nav-link {
+    font-size: 0.7rem;
+    padding: 4px 7px;
+  }
+
+  .nav-logout-btn,
+  .nav-login-btn {
+    font-size: 10px;
+    padding: 3px 7px;
+  }
+}
+
+/* ─── Animation ─── */
+@keyframes pokeBounce {
+  0%   { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
 }

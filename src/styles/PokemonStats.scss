@@ -95,17 +95,48 @@
 
 .gallery-container {
   margin-top: 20px;
+  padding: 0 1rem 1rem;
+  /* Allows the horizontal scroll — now outside glass-panel, no overflow conflict */
+  overflow: visible;
   
+  .gallery-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+
   .gallery-thumbnails {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     overflow-x: auto;
-    padding-bottom: 10px;
+    overflow-y: visible;
+    padding-bottom: 8px;
+    padding-top: 4px;
+    /* Touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    /* Custom scrollbar */
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 2px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 2px;
+    }
 
     .thumbnail-wrapper {
       flex: 0 0 auto;
-      width: 80px;
-      height: 112px;
+      width: 72px;
+      height: 100px;
       border-radius: 6px;
       background: #f0f0f0;
       border: 2px solid transparent;
@@ -116,6 +147,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      scroll-snap-align: start;
 
       img {
         width: 100%;
@@ -158,6 +190,21 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Skeleton shimmer for loading gallery */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.thumbnail-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-color: transparent !important;
+  cursor: default !important;
+  pointer-events: none;
 }
 
 .stats-title.subtitle {

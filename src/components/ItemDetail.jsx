@@ -22,6 +22,7 @@ const ItemDetail = ({ producto }) => {
   const [strengths, setStrengths] = useState([]);
   const [pokemonDescription, setPokemonDescription] = useState(producto.descripcion);
   const [loadingStats, setLoadingStats] = useState(true);
+  const [loadingGallery, setLoadingGallery] = useState(true);
   const [pokemonId, setPokemonId] = useState(null);
   const [playingCry, setPlayingCry] = useState(false);
 
@@ -35,75 +36,67 @@ const ItemDetail = ({ producto }) => {
   useEffect(() => {
     setMainImage(producto.imagen);
     setLoadingStats(true);
+    setLoadingGallery(true);
+    setSprites([]);
 
     const fetchPokemonData = async () => {
       try {
-        // Fetch detailed pokemon info using the name
+        // 1. Fetch base pokemon data first (needed for ID and type)
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${producto.nombre.toLowerCase()}`);
         if (!res.ok) throw new Error("Pokemon not found");
         const data = await res.json();
         setPokemonId(data.id);
 
-        // Fetch TCG Cards
-        const newSprites = [{ url: producto.imagen, name: "Default" }]; // Keep High res artwork
-        try {
-          const tcgRes = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:${producto.nombre.toLowerCase()}`);
-          if (tcgRes.ok) {
-            const tcgData = await tcgRes.json();
-            // Take up to 5 cards
-            const cards = tcgData.data.slice(0, 5);
-            cards.forEach(card => {
-              newSprites.push({ 
-                url: card.images.large, 
-                thumb: card.images.small, 
-                name: card.name,
-                isShiny: card.rarity && card.rarity.toLowerCase().includes("rare")
-              });
+        // 2. Parallelize the remaining 3 independent calls at the same time
+        const [speciesResult, tcgResult, typeResult] = await Promise.allSettled([
+          // Species lore
+          fetch(`https://pokeapi.co/api/v2/pokemon-species/${producto.nombre.toLowerCase()}`)
+            .then(r => r.ok ? r.json() : null),
+          // TCG Cards
+          fetch(`https://api.pokemontcg.io/v2/cards?q=name:${producto.nombre.toLowerCase()}&pageSize=8`)
+            .then(r => r.ok ? r.json() : null),
+          // Type matchups
+          fetch(`https://pokeapi.co/api/v2/type/${data.types[0].type.name}`)
+            .then(r => r.json()),
+        ]);
+
+        // Process species lore
+        if (speciesResult.status === 'fulfilled' && speciesResult.value) {
+          const entries = speciesResult.value.flavor_text_entries;
+          const esEntry = entries.find(e => e.language.name === "es");
+          const enEntry = entries.find(e => e.language.name === "en");
+          const rawText = esEntry?.flavor_text || enEntry?.flavor_text || "";
+          if (rawText) setPokemonDescription(rawText.replace(/[\n\f]/g, ' '));
+        }
+        setLoadingStats(false);
+
+        // Process TCG cards (gallery — shown separately after stats)
+        const newSprites = [{ url: producto.imagen, name: "Default" }];
+        if (tcgResult.status === 'fulfilled' && tcgResult.value?.data) {
+          const cards = tcgResult.value.data.slice(0, 8);
+          cards.forEach(card => {
+            newSprites.push({
+              url: card.images.large,
+              thumb: card.images.small,
+              name: card.name,
+              isShiny: card.rarity && card.rarity.toLowerCase().includes("rare"),
             });
-          }
-        } catch (e) {
-          console.error("Error fetching TCG cards:", e);
+          });
         }
-
         setSprites(newSprites);
+        setLoadingGallery(false);
 
-        // Fetch Species Lore
-        try {
-          const speciesRes = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${producto.nombre.toLowerCase()}`);
-          if (speciesRes.ok) {
-            const speciesData = await speciesRes.json();
-            const entries = speciesData.flavor_text_entries;
-            const esEntry = entries.find(e => e.language.name === "es");
-            const enEntry = entries.find(e => e.language.name === "en");
-            
-            let rawText = "";
-            if (esEntry) rawText = esEntry.flavor_text;
-            else if (enEntry) rawText = enEntry.flavor_text;
-            
-            if (rawText) {
-              // Clean up newlines and form feeds from PokeAPI
-              const cleanText = rawText.replace(/[\n\f]/g, ' ');
-              setPokemonDescription(cleanText);
-            }
-          }
-        } catch (e) {
-          console.error("Error fetching species lore:", e);
+        // Process type matchups
+        if (typeResult.status === 'fulfilled' && typeResult.value) {
+          const typeData = typeResult.value;
+          setWeaknesses(typeData.damage_relations.double_damage_from.map(t => t.name));
+          setStrengths(typeData.damage_relations.double_damage_to.map(t => t.name));
         }
 
-        // Fetch Type Matchups
-        // Taking the primary type (or category) to calculate weaknesses/strengths
-        const typeRes = await fetch(`https://pokeapi.co/api/v2/type/${data.types[0].type.name}`);
-        const typeData = await typeRes.json();
-        
-        const doubleDamageFrom = typeData.damage_relations.double_damage_from.map(t => t.name);
-        const doubleDamageTo = typeData.damage_relations.double_damage_to.map(t => t.name);
-
-        setWeaknesses(doubleDamageFrom);
-        setStrengths(doubleDamageTo);
       } catch (error) {
         console.error("Error fetching extra Pokedex data:", error);
-      } finally {
         setLoadingStats(false);
+        setLoadingGallery(false);
       }
     };
 
@@ -124,24 +117,6 @@ const ItemDetail = ({ producto }) => {
               className="poke-detail-image"
             />
           </div>
-
-          {!loadingStats && sprites.length > 1 && (
-            <div className="gallery-container">
-              <div className="stats-title">Versions & Cards</div>
-              <div className="gallery-thumbnails">
-                {sprites.map((sprite, index) => (
-                  <div 
-                    key={index} 
-                    className={`thumbnail-wrapper ${mainImage === sprite.url ? 'active' : ''} ${sprite.isShiny ? 'shiny-card' : ''}`}
-                    onClick={() => setMainImage(sprite.url)}
-                    title={sprite.name}
-                  >
-                    <img src={sprite.thumb || sprite.url} alt={`${producto.nombre} ${sprite.name}`} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
         <div className="product-right">
@@ -223,6 +198,39 @@ const ItemDetail = ({ producto }) => {
         </div>
 
       </section>
+
+      {/* Gallery OUTSIDE glass-panel so overflow-hidden doesn't block horizontal scroll */}
+      {loadingGallery ? (
+        <div className="gallery-container">
+          <div className="stats-title">Versions & Cards</div>
+          <div className="gallery-thumbnails">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="thumbnail-wrapper thumbnail-skeleton" />
+            ))}
+          </div>
+        </div>
+      ) : sprites.length > 1 && (
+        <div className="gallery-container">
+          <div className="stats-title">Versions & Cards</div>
+          <div className="gallery-thumbnails">
+            {sprites.map((sprite, index) => (
+              <div 
+                key={index} 
+                className={`thumbnail-wrapper ${mainImage === sprite.url ? 'active' : ''} ${sprite.isShiny ? 'shiny-card' : ''}`}
+                onClick={() => setMainImage(sprite.url)}
+                title={sprite.name}
+              >
+                <img 
+                  src={sprite.thumb || sprite.url} 
+                  alt={`${producto.nombre} ${sprite.name}`}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <Toaster
         position="bottom-center"
         toastOptions={{

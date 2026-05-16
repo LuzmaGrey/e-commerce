@@ -1,23 +1,80 @@
 .OrderItem {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  gap: 16px;
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 77, 79, 0.04);
+  border: 1px solid rgba(255, 77, 79, 0.1);
+  border-radius: 12px;
 }
+
 .OrderItem figure {
   margin: 0;
+  flex-shrink: 0;
 }
+
 .OrderItem figure img {
-  width: 70px;
-  height: 70px;
-  border-radius: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
   object-fit: cover;
+  display: block;
 }
+
+/* Pokemon name */
 .OrderItem p:nth-child(2) {
-  color: #c7c7c7;
+  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
+
+/* Quantity */
 .OrderItem p:nth-child(3) {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Price */
+.OrderItem p:nth-child(4) {
+  font-size: 14px;
+  font-weight: 900;
+  color: #ff4d4f;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Delete icon */
+.OrderItem img:last-child {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.OrderItem img:last-child:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+@media (max-width: 380px) {
+  .OrderItem figure img {
+    width: 44px;
+    height: 44px;
+  }
+  .OrderItem p:nth-child(2) {
+    font-size: 12px;
+  }
 }

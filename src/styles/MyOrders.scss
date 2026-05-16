@@ -2,19 +2,20 @@
 
 .MyOrder {
   width: 380px;
-  padding: 24px;
+  max-width: calc(100vw - 24px);
+  padding: 20px;
   box-sizing: border-box;
-  position: absolute;
-  right: 0;
-  top: 120px;
-  z-index: 100;
+  position: fixed;
+  right: 12px;
+  top: 68px;
+  z-index: 1000;
   bottom: auto;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
   animation: slideInCart 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Red accent top bar */
@@ -141,8 +142,17 @@
 
 @media (max-width: 640px) {
   .MyOrder {
-    width: calc(100% - 20px);
-    right: 10px;
+    width: calc(100vw - 24px);
+    right: 12px;
+    left: 12px;
+    top: 60px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 16px;
+  }
+
+  .my-order-content {
+    max-height: 55vh;
   }
 }
 
