@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+
+.alphabet-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 20px;
+  max-width: 960px;
+  margin: 0 auto 20px;
+
+  .alpha-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    background: transparent;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    &:hover {
+      border-color: #ff4d4f;
+      color: #ff4d4f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(255, 77, 79, 0.2);
+    }
+
+    &.active {
+      background: linear-gradient(135deg, #ff4d4f, #c0392b);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 77, 79, 0.45);
+      transform: translateY(-2px);
+    }
+
+    /* "All" button styling */
+    &:first-child {
+      width: auto;
+      padding: 0 12px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      &.active {
+        background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
+        box-shadow: 0 4px 12px rgba(26, 26, 46, 0.4);
+      }
+    }
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .alphabet-bar {
+    gap: 4px;
+    padding: 10px;
+
+    .alpha-btn {
+      width: 28px;
+      height: 28px;
+      font-size: 0.75rem;
+      border-radius: 6px;
+    }
+  }
+}

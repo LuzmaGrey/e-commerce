@@ -18,6 +18,7 @@ import AppContext from "../context/AppContext";
 import useForm from "../hooks/useForm";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Form.scss";
+import "../styles/EmptyCart.scss";
 
 const initialForm = {
   name: "",
@@ -31,8 +32,8 @@ const validationsForm = (form) => {
   let errors = {};
   let regexNameSurname = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
   let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
-  let regexPhone =
-    /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/;
+  let regexPhone = /^\+?[\d\s\-().]{7,20}$/;
+
 
   if (!form.name.trim()) {
     errors.name = "The 'Name' field is required";
@@ -61,7 +62,7 @@ const validationsForm = (form) => {
   return errors;
 };
 
-const FinishBuying = () => {
+const FinishBuying = ({ onOrderConfirmed }) => {
   const { state, totalPrice, emptyCart } = useContext(AppContext);
   const { form, errors, handleChange, handleBlur, setForm } = useForm(
     initialForm,
@@ -108,7 +109,9 @@ const FinishBuying = () => {
       setResponse(resp.id);
       setForm(initialForm);
       emptyCart();
-      toast.success(`Purchase successful!`);
+      toast.success(`Purchase successful! 🎉`);
+      // Notify parent so it doesn't switch to EmptyCart
+      if (onOrderConfirmed) onOrderConfirmed();
 
       // Update stock
       const queryCollectionStock = collection(db, "productos");
@@ -142,21 +145,23 @@ const FinishBuying = () => {
 
   if (response) {
     return (
-      <section id="contact" className="contact">
-        <div className="section-title">
-          <h2>Order Confirmed!</h2>
-        </div>
-        <div className="confirmed-container">
-          <div className="confirmed-icon">✅</div>
-          <h3>Thank you for your purchase!</h3>
-          <p>Your order number is:</p>
-          <span className="order-id">{response}</span>
-          <br /><br />
+      <div className="order-success-screen">
+        <div className="order-success-inner">
+          <div className="order-success-icon">🎉</div>
+          <h2 className="order-success-title">Order Confirmed!</h2>
+          <p className="order-success-subtitle">Thank you for your purchase, Trainer!</p>
+          <div className="order-success-id-box">
+            <span className="order-success-label">Your Order ID</span>
+            <span className="order-id">{response}</span>
+          </div>
+          <p className="order-success-note">
+            We'll send you a confirmation with all the details. Keep an eye on your inbox!
+          </p>
           <Link to="/">
-            <button className="button-fw">Back to Pokédex</button>
+            <button className="button-fw">Back to Pokédex 🔴</button>
           </Link>
         </div>
-      </section>
+      </div>
     );
   }
 

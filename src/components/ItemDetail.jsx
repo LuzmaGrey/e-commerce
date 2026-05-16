@@ -22,6 +22,8 @@ const ItemDetail = ({ producto }) => {
   const [strengths, setStrengths] = useState([]);
   const [pokemonDescription, setPokemonDescription] = useState(producto.descripcion);
   const [loadingStats, setLoadingStats] = useState(true);
+  const [pokemonId, setPokemonId] = useState(null);
+  const [playingCry, setPlayingCry] = useState(false);
 
   const onAdd = (cant) => {
     addToCart({ ...producto, cantidad: cant });
@@ -40,6 +42,7 @@ const ItemDetail = ({ producto }) => {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${producto.nombre.toLowerCase()}`);
         if (!res.ok) throw new Error("Pokemon not found");
         const data = await res.json();
+        setPokemonId(data.id);
 
         // Fetch TCG Cards
         const newSprites = [{ url: producto.imagen, name: "Default" }]; // Keep High res artwork
@@ -142,7 +145,23 @@ const ItemDetail = ({ producto }) => {
         </div>
 
         <div className="product-right">
-          <div className="title">{producto.nombre}</div>
+          <div className="poke-title-row">
+            <div className="title">{producto.nombre}</div>
+            {pokemonId && (
+              <button
+                className={`cry-btn ${playingCry ? 'playing' : ''}`}
+                title="Play Pokémon cry"
+                onClick={() => {
+                  const audio = new Audio(`https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokemonId}.ogg`);
+                  setPlayingCry(true);
+                  audio.play();
+                  audio.onended = () => setPlayingCry(false);
+                }}
+              >
+                {playingCry ? '🔊' : '🔈'}
+              </button>
+            )}
+          </div>
           <div className="company-name poke-category">
             Type: {producto.categoria}
           </div>

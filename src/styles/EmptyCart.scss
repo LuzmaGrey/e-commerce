@@ -1,23 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap');
+
+/* ---- Empty Cart ---- */
 .containerEmptyCart {
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  margin-top: 150px;
-  margin-bottom: 39px;
+  padding: 80px 20px 60px;
+  text-align: center;
+
+  .bigIConCart {
+    font-size: 7rem;
+    margin-bottom: 1.5rem;
+    color: #d0d0e8;
+  }
+
+  .titleEmptyCart {
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;
+    color: #1a1a2e;
+    margin-bottom: 12px;
+  }
+
+  .descriptionEmptyCart {
+    font-size: 1rem;
+    color: #888;
+    max-width: 380px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  a button {
+    width: 200px;
+    font-size: 1rem;
+  }
 }
-.containerEmptyCart .titleEmptyCart {
-  font-size: 36px;
-  line-height: 32px;
+
+/* ---- Order Success Screen ---- */
+.order-success-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  min-height: 50vh;
+  width: 100%;
 }
-.containerEmptyCart .descriptionEmptyCart {
-  font-size: 16px;
-  line-height: 22px;
+
+.order-success-inner {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  padding: 3rem 2.5rem;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+
+  /* Rainbow top bar */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #ff4d4f, #ffcc00, #7AC74C, #6390F0);
+    border-radius: 24px 24px 0 0;
+  }
+}
+
+.order-success-icon {
+  font-size: 4rem;
   margin-bottom: 16px;
-  font-weight: bold;
+  animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.bigIConCart {
-  font-size: 10rem;
-  margin: 1.5rem;
-  color: rgba(169, 177, 245, 0.75);
+
+.order-success-title {
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: 'Montserrat', sans-serif;
+  color: #1a1a2e;
+  margin-bottom: 8px;
 }
+
+.order-success-subtitle {
+  font-size: 1.05rem;
+  color: #666;
+  margin-bottom: 28px;
+}
+
+.order-success-id-box {
+  background: linear-gradient(135deg, rgba(26,26,46,0.05), rgba(255,204,0,0.08));
+  border: 1px solid rgba(26,26,46,0.1);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-success-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #aaa;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.order-id {
+  font-size: 0.95rem;
+  font-weight: 900;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, #52c41a, #1a7a2e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  word-break: break-all;
+  letter-spacing: 0.5px;
+}
+
+.order-success-note {
+  font-size: 0.88rem;
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+@keyframes bounceIn {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
